@@ -1,0 +1,20 @@
+
+
+.accordion-button:focus {
+    border-color: #20c997;
+}
+
+/* цвет фона при нажатии на кнопку аккордеона */
+.accordion-button:not(.collapsed) {
+    background-color: #20c997;
+ }
+
+/* цвет текста заголовка аккордеона */
+ .accordion-button {
+    color: #20c997;
+ }
+
+/* цвет текста внутри аккордеона*/
+ .accordion-item {
+    color: #20c997;
+ }

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="static/css/dlya_prob.css">
+    <title>Заголовок</title>
+</head>
+<body>
+<div class="container">
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Дополнительные коэффициенты
+                </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="k_1">
+                        <label class="form-check-label" for="k_1">
+                            Шаг колонн и несущих стен менее 6 м. (п.2.1.9)
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="k_2">
+                        <label class="form-check-label" for="k_2">
+                            Обмеры и обследование клёпаных конструкций (п.2.1.10)
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="k_3">
+                        <label class="form-check-label" for="k_3">
+                            Выполнение обмерных работ с использованием и сверкой имеющихся чертежей и выдачей
+                            скорректированных чертежей заказчику(п.2.1.12)
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="k_4">
+                        <label class="form-check-label" for="k_4">
+                            Выполнение поверочного расчета строительных конструкций не требуется (п.2.1.13)
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion accordion-flush">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                aria-controls="flush-collapseTwo">
+                            Факторы, усложняющие работу (табл. 10)
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="k10_1">
+                                <label class="form-check-label" for="k10_1">
+                                    Здания, возведенные на просадочных, набухающих грунтах, над горными выработками,
+                                    в подтапливаемых районах с карстовыми и оползневыми явлениями
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="k10_2">
+                                <label class="form-check-label" for="k10_2">
+                                    Насыщенность оборудованием более 50% площади помещений, затрудняющая
+                                    производство обмерных и обследовательских работ или выполнение обмеров и
+                                    обследований в затрудненных условиях (захламленность, стесненность, частично
+                                    разобраны полы и др.)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="k10_3">
+                                <label class="form-check-label" for="k10_3">
+                                    Выполнение работ в цехах с вредным для здоровья производством, с
+                                    вибродинамическими воздействиями на конструкции здания, с выделением пара,
+                                    шумовыми воздействиями
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="k10_4">
+                                <label class="form-check-label" for="k10_4">
+                                    Выполнение работ в неотапливаемых зданиях или его частях (чердаки, кровли,
+                                    фасады и др.) в неблагоприятный период года
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="k10_5">
+                                <label class="form-check-label" for="k10_5">
+                                    Выполнение работ в зданиях, являющихся памятником архитектуры
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="k10_6">
+                                <label class="form-check-label" for="k10_6">
+                                    Выполнение работ в условиях, требующих обеспечение безопасности (использование
+                                    дополнительных лестниц и различных приспособлений)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="k10_7">
+                                <label class="form-check-label" for="k10_7">
+                                    Выполнение работ в цехах со слабой степенью агрессивного воздействия окружающей
+                                    среды
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="k10_8">
+                                <label class="form-check-label" for="k10_8">
+                                    То же, в цехах со средней степенью агрессивного воздействия окружающей среды
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="k10_9">
+                                <label class="form-check-label" for="k10_9">
+                                    То же, в цехах с сильной степенью агрессивного воздействия окружающей среды
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="k10_10">
+                                <label class="form-check-label" for="k10_10">
+                                    Конструкции, усиленные по ранее разработанным проектам
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="k10_11">
+                                <label class="form-check-label" for="k10_11">
+                                    Сейсмичность 7 баллов
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="k10_12">
+                                <label class="form-check-label" for="k10_12">
+                                    Сейсмичность 8 баллов
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="k10_13">
+                                <label class="form-check-label" for="k10_13">
+                                    Сейсмичность 9 баллов
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="k10_14">
+                                <label class="form-check-label" for="k10_14">
+                                    Выполнение работ на объектах со специальным режимом
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+                    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+                    crossorigin="anonymous"></script>
+</body>
+</html>

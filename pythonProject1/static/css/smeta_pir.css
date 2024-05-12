@@ -1,0 +1,81 @@
+
+body {
+    width: 900px;
+    margin: auto;} /* Центрирует содержимое*/
+
+input {
+    width: 280px;}
+
+select {
+    width: 300px;}
+
+input#k_1, input#k_2, input#k_3 {
+    width: 20px;}
+
+input, select {
+    background-color: #f2f2f2;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+    padding: 5px 10px 5px 10px;
+    margin: 10px 0px 10px;}
+
+input:focus, input:hover, select:focus, select:hover {
+    background-color: #ffffff;
+    border: 1px solid #b1e1e4;}
+
+input#submit {
+    padding: 5px;
+    font-size: 1.1em;
+    color: #444444;
+    clear: both;
+    display: block;
+    position: relative;
+    left: 300px;
+    text-shadow: 0px 1px 1px #ffffff;
+    border-bottom: 2px solid #b2b2b2;
+    background-color: #b9e4e3;
+    background: -webkit-gradient(linear, left top, left bottom, from(#beeae9), to(#a8cfce));}
+
+input#submit:hover {
+    color: #333333;
+    border: 1px solid #a4a4a4;
+    border-top: 2px solid #b2b2b2;
+    background-color: #a0dbc4;
+    background: -webkit-gradient(linear, left top, left bottom, from(#a8cfce), to(#beeae9));}
+
+fieldset {
+    border: 1px solid #bdbdbd;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 10px;}
+
+legend {
+    font-size: 1.2em;
+    text-align:;}
+
+.column1of2, .column2of2 {
+    width: 350px;
+    float: left;
+    margin: 10px;}
+
+header, nav {
+  text-align: center;
+  background: ;
+  margin: 20px 0;
+  padding: 5px;}
+
+ .accordion-button:not(.collapsed) {
+    background-color: var(--bs-white);
+ }
+
+.accordion {
+    --bs-accordion-btn-focus-box-shadow: 0 0 0 0.15rem #a8cfce;
+}
+
+.accordion-flush .accordion-item .accordion-button, .accordion-flush .accordion-item .accordion-button.collapsed {
+  border-radius: 0.2rem;
+}
+
+label {
+    margin-left: 5px}
+
