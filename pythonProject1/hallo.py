@@ -10,7 +10,7 @@ choice = ['Нет, не применять', 'Да, применить']
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    k1 ,k2 = 1, 1
+    k1, k2 = 1, 1
     if request.method == 'POST':
         area = request.form.get('area')
         height = request.form.get('height')
@@ -28,7 +28,7 @@ def index():
                                the_results=results,
                                choice=choice,
                                koef_1=koef1,
-                               koef_2=koef2,)
+                               koef_2=koef2, )
 
     else:
         return render_template('index.html',
@@ -72,50 +72,29 @@ def smeta():
         k10_13 = request.form.get('k10_13')  # = 1.25
         k10_14 = request.form.get('k10_14')  # = 1.25
 
-        k1, k2, k3, k4, k5 = 1, 1, 1, 1, 1
-        if purpose == '2':  # если промышленное
-            k1 = 0.8
-        if k_2:
-            k2 = 1.25
-        if k_3:
-            k3 = 1.2
-        if k_4:
-            k3 = 0.75  # Только для обмерных работ!
-        if k_5:
-            k5 = 0.8  # Только для обследовательских работ!
+        k1 = 0.8 if purpose == '2' else 1  # если промышленное
+        k2 = 1.25 if k_2 else 1
+        k3 = 1.2 if k_3 else 1
+        k4 = 0.75 if k_4 else 1  # Только для обмерных работ!
+        k5 = 0.8 if k_5 else 1  # Только для обследовательских работ!
 
         k_obm = k1 * k2 * k3 * k4  # коэффициент для обмерных работ (без k5)
         k_obs = k1 * k2 * k3 * k5  # коэффициент для обмерных работ (без k4)
 
-        k101, k102, k103, k104, k105, k106, k107,  k108, k109, k1010, k1011,  k1012, k1013, k1014 = 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-        if k10_1:
-            k101 = 1.2
-        if k10_2:
-            k102 = 1.15
-        if k10_3:
-            k103 = 1.2
-        if k10_4:
-            k104 = 1.2
-        if k10_5:
-            k105 = 1.25
-        if k10_6:
-            k106 = 1.15
-        if k10_7:
-            k107 = 1.2
-        if k10_8:
-            k108 = 1.3
-        if k10_9:
-            k101 = 1.4
-        if k10_10:
-            k1010 = 1.2
-        if k10_11:
-            k1011 = 1.1
-        if k10_12:
-            k1012 = 1.2
-        if k10_13:
-            k1013 = 1.25
-        if k10_14:
-            k1014 = 1.25
+        k101 = 1.2 if k10_1 else 1
+        k102 = 1.15 if k10_2 else 1
+        k103 = 1.2 if k10_3 else 1
+        k104 = 1.2 if k10_4 else 1
+        k105 = 1.25 if k10_5 else 1
+        k106 = 1.15 if k10_6 else 1
+        k107 = 1.2 if k10_7 else 1
+        k108 = 1.3 if k10_8 else 1
+        k109 = 1.4 if k10_9 else 1
+        k1010 = 1.2 if k10_10 else 1
+        k1011 = 1.1 if k10_11 else 1
+        k1012 = 1.2 if k10_12 else 1
+        k1013 = 1.25 if k10_13 else 1
+        k1014 = 1.25 if k10_14 else 1
 
         k10 = k101 * k102 * k103 * k104 * k105 * k106 * k107 * k108 * k109 * k1010 * k1011 * k1012 * k1013 * k1014
 
@@ -176,7 +155,7 @@ def smeta():
                                k_2=k_2, k_3=k_3, k_4=k_4, k_5=k_5,
                                k10_1=k10_1, k10_2=k10_2, k10_3=k10_3, k10_4=k10_4, k10_5=k10_5, k10_6=k10_6,
                                k10_7=k10_7, k10_8=k10_8, k10_9=k10_9, k10_10=k10_10, k10_11=k10_11,
-                               k10_12=k10_12, k10_13=k10_13, k10_14=k10_14,)
+                               k10_12=k10_12, k10_13=k10_13, k10_14=k10_14, )
     else:
         return render_template('smeta_pir.html',
                                the_title='Расчет площади',
