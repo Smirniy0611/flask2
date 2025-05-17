@@ -14,12 +14,12 @@ smeta_pir
         <legend> Калькулятор расчёта стоимости работ</legend>
         <div class="column1of2">
             <label> Строительный объём: <br/>
-                <input name="volume" value={{the_volume}}>
+                <input name="volume" value={{the_volume}} type="number">
                 <span>м<sup>3</sup></span> </label>
             <br/>
 
-            <label> Высота здания в метрах: <br/>
-                <input name="height" value={{the_height}}> <span>м.</span> </label>
+            <label> Высота здания в метрах, до: <br/>
+                <input name="height" value={{the_height}} type="number"> <span>м.</span> </label>
             <br/>
 
             <label> Назначение здания: <br>
@@ -244,7 +244,7 @@ smeta_pir
 
     <fieldset>
         <h6>
-            <legend> Результат</legend>
+            <legend> Результат </legend>
             <br/><br/>
             <label> Стоимость обмерных работ:
                 <span> {{ results_1 }} руб. </span> </label>

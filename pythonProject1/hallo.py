@@ -39,6 +39,66 @@ def index():
                                choice=choice)
 
 
+@app.route('/R', methods=['POST', 'GET'])
+def R():
+    if request.method == 'POST':
+        grunt = request.form.get('grunt')  # от вида грунта зависит коэффициент Gamma_c1
+        Gamma_c2 = request.form.get('Gamma_c2')  # Коэффициент для сооружений с жесткой
+        # конструктивной схемой при отношении длины  сооружения или его отсека к высоте L/H
+        k = request.form.get('k')  # k - коэффициент, принимаемый равным единице,
+        # если прочностные характеристики грунта (фи и С) определены непосредственными испытаниями,
+        # и k=1,1, если они приняты по таблицам приложения А
+        fi = request.form.get('fi')  # угол внутреннего трения. От него находим My, Mq, Mc
+        cII = request.form.get('cII')  # удельное сопротивление грунта, в т/м2
+        b = request.form.get('b')  # ширина подошвы фундамента, м.
+        yII = request.form.get('yII')  # осредненное расчетное значение удельного веса грунтов,
+        # залегающих ниже подошвы фундамента, в т/м3
+        y_II = request.form.get('y_II')  # осредненное расчетное значение удельного веса грунтов,
+        # залегающих выше подошвы фундамента, в т/м3
+        d1 = request.form.get('d1')  # глубина заложения фундамента, в м.
+        db = request.form.get('db')  # глубина подвала, в м.
+
+        G_c1 = {'1': 1.4, '2': 1.3, '3': 1.25, '4': 1.1, '5': 1.25, '6': 1.2, '7': 1.1}
+        Gamma_c1 = G_c1[grunt]
+
+        My = tab5[int(fi)][0]
+        Mq = tab5[int(fi)][1]
+        Mc = tab5[int(fi)][2]
+
+        R = (Gamma_c1 * float(Gamma_c2) / float(k)) * (My * float(b) * float(yII) +
+            Mq * float(d1) * float(y_II) + (Mq - 1) * float(db) * float(y_II) + Mc * float(cII))
+        R = round(R, 2)  # округляем до второго знака после запятой
+
+        return render_template('R.html',
+                               the_grunt=grunt,
+                               the_Gamma_c2=Gamma_c2,
+                               the_k=k,
+                               the_fi=fi,
+                               the_cII=cII,
+                               the_b=b,
+                               the_yII=yII,
+                               the_y_II=y_II,
+                               the_d1=d1,
+                               the_db=db,
+                               My=My, Mq=Mq, Mc=Mc,
+                               R=R,)
+
+    else:
+        return render_template('R.html',
+                               the_grunt='1',
+                               the_Gamma_c2='1',
+                               the_k='1',
+                               the_fi=0,
+                               the_cII=0,
+                               the_b=0,
+                               the_yII=0,
+                               the_y_II=0,
+                               the_d1=0,
+                               the_db=0,
+                               My=0, Mq=0, Mc=0,
+                               R=0,)
+
+                # СМЕТА
 @app.route('/smeta', methods=['POST', 'GET'])
 def smeta():
     if request.method == 'POST':
