@@ -11,32 +11,42 @@ cat = ['1', '2', '3']
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    k1, k2 = 1, 1
+    results = None
     if request.method == 'POST':
+        # получаем данные из формы
         area = request.form.get('area')
         height = request.form.get('height')
         koef1 = request.form.get('koef_1')
-        koef2 = request.form.get('koef_2')
-        if koef1 == 'Да, применить':
-            k1 = 0.8
-        if koef2:
-            k2 = 0.6
-        results = int(area) * int(height) * k1 * k2
-        return render_template('index.html',
-                               the_title='Расчет площади',
-                               the_area=area,
-                               the_height=height,
-                               the_results=results,
-                               choice=choice,
-                               koef_1=koef1,
-                               koef_2=koef2, )
+        koef_2 = request.form.get('koef_2')
 
-    else:
-        return render_template('index.html',
-                               the_title='Расчет площади',
-                               the_area=0,
-                               the_height=0,
-                               choice=choice)
+
+        # Сохраняем данные в сессии
+        session['form_data'] = {
+            'area':area,
+            'height':height,
+            'koef_1':koef1,
+            'koef_2':koef_2,
+        }
+        # рассчитываем результат
+        results = float(area) * float(height) * float(koef1)
+
+        # Применяем коэфф. 0.6, если чекбокс установлен
+        if koef_2:
+            results *= 0.6
+
+        # сохраняем результат в сессии
+        session['results'] = results
+
+        # Перенаправляем на ту же страницу с методом GET
+        return redirect(url_for('index'))
+
+    # Загружаем данные из сессии для предварительного заполнения
+    form_data = session.get('form_data',{})
+    results = session.get('results', 0)
+
+    return render_template('index.html',
+                           form_data = form_data,
+                           results = results)
 
 
 @app.route('/R', methods=['POST', 'GET'])

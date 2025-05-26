@@ -13,24 +13,23 @@ index page
 <form method='POST' action='/'>
     <legend> Калькулятор расчёта объёма </legend>
     <label> Введите площадь помещения: <br/>
-        <input name='area' value={{ the_area }}>
+        <input type="number" id="area" name='area' value="{{ form_data.get('area') }}" required>
         <span>м<sup>2</sup></span> </label>
     <br/>
     <label> Введите высоту помещения: <br/>
-        <input name='height' value={{ the_height }}>
+        <input type="number" id="height" name='height' value="{{ form_data.get('height') }}" required>
         <span>м.</span> </label>
     <br/>
     <br/>
     <label> Применить понижающий коэффициент 0,8?: <br>
         <select name="koef_1">
-            {% for i in choice %}
-            <option value="{{i}}" {% if koef_1==i %}selected{% endif %}>{{i}}</option>
-            {% endfor %}
+            <option value='0.8' {% if form_data.get('koef_1') == '0.8' %}selected{% endif %}> Да, применить </option>
+            <option value='1' {% if form_data.get('koef_1') == '1' %}selected{% endif %}> Нет, не применять </option>
         </select> </label>
     <br/><br/>
 
     <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="k_1" name="koef_2" {% if koef_2 %} checked {% endif %}>
+        <input class="form-check-input" type="checkbox" id="k_1" name="koef_2" {% if form_data.get('koef_2') %} checked {% endif %}>
         <label class="form-check-label" for="k_1">
             Коэффициент 0.6
         </label>
@@ -42,7 +41,7 @@ index page
     <fieldset>
         <legend> Результат</legend>
         <label> Объём помещения равен:
-            <span> {{ the_results }} м<sup>3</sup> </span> </label>
+            <span> {{ results }} м<sup>3</sup> </span> </label>
     </fieldset>
 </form>
 
