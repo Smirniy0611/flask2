@@ -13,60 +13,60 @@ R
     <fieldset>
         <legend> Калькулятор определения расчетного сопротивления грунта </legend>
             <label> Выбирете тип грунта, залегающего под подошвой фундамента: <br>
-                <select class="form-select" name="grunt">
-                    <option value="1" {% if the_grunt=='1' %}selected{% endif %}>Крупнообломочные с песчаным заполнителем и пески, кроме мелких и пылеватых</option>
-                    <option value="2" {% if the_grunt=='2' %}selected{% endif %}>Пески мелкие</option>
-                    <option value="3" {% if the_grunt=='3' %}selected{% endif %}>Пески пылеватые: маловлажные</option>
-                    <option value="4" {% if the_grunt=='4' %}selected{% endif %}>Пески пылеватые: влажные, насыщенные водой</option>
-                    <option value="5" {% if the_grunt=='5' %}selected{% endif %}>Глинистые, а также крупнообломочные с глинистым заполнителем с показателем текучести грунта или заполнителя
+                <select name="grunt">
+                    <option value="1" {% if form_data.get('grunt') == '1' %} selected {% endif %}> Крупнообломочные с песчаным заполнителем и пески, кроме мелких и пылеватых </option>
+                    <option value="2" {% if form_data.get('grunt') == '2' %} selected {% endif %}>Пески мелкие</option>
+                    <option value="3" {% if form_data.get('grunt') == '3' %} selected {% endif %}>Пески пылеватые: маловлажные</option>
+                    <option value="4" {% if form_data.get('grunt') == '4' %} selected {% endif %}>Пески пылеватые: влажные, насыщенные водой</option>
+                    <option value="5" {% if form_data.get('grunt') == '5' %} selected {% endif %}>Глинистые, а также крупнообломочные с глинистым заполнителем с показателем текучести грунта или заполнителя
 Il<=0,25</option>
-                    <option value="6" {% if the_grunt=='6' %}selected{% endif %}>То же, при 0,25 < Il <= 0,5</option>
-                    <option value="7" {% if the_grunt=='7' %}selected{% endif %}>То же, при 0,5 > Il</option>
+                    <option value="6" {% if form_data.get('grunt') == '6' %} selected {% endif %}>То же, при 0,25 < Il <= 0,5</option>
+                    <option value="7" {% if form_data.get('grunt') == '7' %} selected {% endif %}>То же, при 0,5 > Il</option>
                 </select> </label>
             <br/>
 
-            <label> Конструктивная схема здания: <br>
+            <labelclass="form-label"> Конструктивная схема здания: <br>
                 <select class="form-select" name="Gamma_c2">
-                    <option value="1" {% if the_Gamma_c2=='1' %}selected{% endif %}> Гибкая </option>
-                    <option value="1" {% if the_Gamma_c2=='2' %}selected{% endif %}> Жесткая </option>
+                    <option value="1" {% if form_data.get('Gamma_c2') == '1' %} selected {% endif %}> Гибкая </option>
+                    <option value="2" {% if form_data.get('Gamma_c2') == '2' %} selected {% endif %}> Жесткая </option>
                 </select> </label>
             <br/>
 
             <label> Прочностные характеристики грунта определены: <br>
-                <select class="form-select" name="k">
-                    <option value="1" {% if the_k=='1' %}selected{% endif %}> Непосредственными испытаниями </option>
-                    <option value="1.1" {% if the_k=='1.1' %}selected{% endif %}> По таблицам приложения А СП 22.13330.2016 </option>
+                <select name="k">
+                    <option value="1" {% if form_data.get('k') == '1' %} selected {% endif %}> Непосредственными испытаниями </option>
+                    <option value="1.1" {% if form_data.get('k') == '1.1' %} selected {% endif %}> По таблицам приложения А СП 22.13330.2016 </option>
                 </select> </label>
             <br/>
 
             <label> Введите значение угла внутреннего трения в гр, fi=  <br/>
-                <input class="form-control" name="fi" value={{the_fi}} type="number" step="1"> <span> гр. </span> </label>
+                <input name="fi" value={{form_data.get('fi')}} type="number" step="1" required> <span> гр. </span> </label>
             <br/>
 
             <label> Введите значение удельного сцепления грунта в т/м2, cII= <br/>
-                <input name="cII" value={{the_cII}} type="number" step="0.1"> <span> т/м2 </span> </label>
+                <input name="cII" value={{form_data.get('cII')}} type="number" step="0.1" required> <span> т/м2 </span> </label>
             <br/>
 
             <label> Укажите ширину подошвы фундамента в м., b = <br/>
-                <input name="b" value={{the_b}} type="number" step="0.1"> <span> м. </span> </label>
+                <input name="b" value={{form_data.get('b')}} type="number" step="0.1" required>  м.  </label>
             <br/>
 
             <label> Введите осредненное расчетное значение удельного веса грунтов,
 залегающих ниже подошвы фундамента, в т/м3: <br/>
-                <input name="yII" value={{the_yII}} type="number" step="0.1"> <span> т/м3 </span> </label>
+                <input name="yII" value={{form_data.get('yII')}} type="number" step="0.1" required> <span> т/м3 </span> </label>
             <br/>
 
         <label> Введите осредненное расчетное значение удельного веса грунтов,
 залегающих выше подошвы фундамента, в т/м3: <br/>
-                <input name="y_II" value={{the_y_II}} type="number" step="0.1"> <span> т/м3 </span> </label>
+                <input name="y_II" value={{form_data.get('y_II')}} type="number" step="0.1" required> <span> т/м3 </span> </label>
             <br/>
 
         <label> Введите, пожалуйста, глубину заложения фундамента, в м., d1=  <br/>
-                <input name="d1" value={{the_d1}} type="number" step="0.1"> <span> м. </span> </label>
+                <input name="d1" value={{form_data.get('d1')}} type="number" step="0.1" required> <span> м. </span> </label>
             <br/>
 
         <label> Введите, пожалуйста, глубину подвала, в м., db=  <br/>
-                <input name="db" value={{the_db}} type="number" step="0.1"> <span> м. </span> </label>
+                <input name="db" value={{form_data.get('db')}} type="number" step="0.1" required> <span> м. </span> </label>
             <br/>
 
         <input type="submit" value="Рассчитать" id="submit">
@@ -78,16 +78,16 @@ Il<=0,25</option>
             <legend> Результат </legend>
             <br/><br/>
             <label> My=
-                <span> {{ My }} </span> </label>
-            <br/><br/>
+                <span> {{ form_data2.get('My') }} </span> </label>
+            <br/>
             <label> Mq=
-                <span> {{ Mq }} </span> </label>
-            <br/><br/>
+                <span> {{ form_data2.get('Mq') }} </span> </label>
+            <br/>
             <label> Mc=
-                <span> {{ Mc }} </span> </label>
+                <span> {{ form_data2.get('Mc') }} </span> </label>
             <br/><br/>
             <label> Расчетное сопротивление грунта составляет:
-                <span> {{ R }} т/м2 </span> </label>
+                <span> {{ form_data2.get('R') }} т/м2 </span> </label>
         </h6>
     </fieldset>
 

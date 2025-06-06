@@ -5,12 +5,15 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'hard to guess string'  # настраиваем ключ шифрования
 
-choice = ['Нет, не применять', 'Да, применить']
 cat = ['1', '2', '3']
-
+G_c1 = {'1': 1.4, '2': 1.3, '3': 1.25, '4': 1.1, '5': 1.25, '6': 1.2, '7': 1.1}
 
 @app.route('/', methods=['POST', 'GET'])
-def index():
+def index(): pass
+
+
+@app.route('/volume', methods=['POST', 'GET'])
+def volume():
     results = None
     if request.method == 'POST':
         # получаем данные из формы
@@ -68,7 +71,19 @@ def R():
         d1 = request.form.get('d1')  # глубина заложения фундамента, в м.
         db = request.form.get('db')  # глубина подвала, в м.
 
-        G_c1 = {'1': 1.4, '2': 1.3, '3': 1.25, '4': 1.1, '5': 1.25, '6': 1.2, '7': 1.1}
+        session['form_data'] = {
+            'grunt':grunt,
+            'Gamma_c2':Gamma_c2,
+            'k':k,
+            'fi':fi,
+            'cII':cII,
+            'b':b,
+            'yII':yII,
+            'y_II':y_II,
+            'd1':d1,
+            'db':db,
+        }
+
         Gamma_c1 = G_c1[grunt]
 
         My = tab5[int(fi)][0]
@@ -79,34 +94,26 @@ def R():
             Mq * float(d1) * float(y_II) + (Mq - 1) * float(db) * float(y_II) + Mc * float(cII))
         R = round(R, 2)  # округляем до второго знака после запятой
 
-        return render_template('R.html',
-                               the_grunt=grunt,
-                               the_Gamma_c2=Gamma_c2,
-                               the_k=k,
-                               the_fi=fi,
-                               the_cII=cII,
-                               the_b=b,
-                               the_yII=yII,
-                               the_y_II=y_II,
-                               the_d1=d1,
-                               the_db=db,
-                               My=My, Mq=Mq, Mc=Mc,
-                               R=R,)
+        session['form_data2'] = {
+            'Gamma_c1':Gamma_c1,
+            'My':My,
+            'Mq':Mq,
+            'Mc':Mc,
+            'R':R,
+        }
 
-    else:
-        return render_template('R.html',
-                               the_grunt='1',
-                               the_Gamma_c2='1',
-                               the_k='1',
-                               the_fi=0,
-                               the_cII=0,
-                               the_b=0,
-                               the_yII=0,
-                               the_y_II=0,
-                               the_d1=0,
-                               the_db=0,
-                               My=0, Mq=0, Mc=0,
-                               R=0,)
+        # Перенаправляем на ту же страницу с методом GET
+        return redirect(url_for('R'))
+
+    # Загружаем данные из сессии для предварительного заполнения
+    form_data = session.get('form_data', {})
+    form_data2 = session.get('form_data2', {})
+
+    return render_template('R.html',
+                           form_data=form_data,
+                           form_data2=form_data2,
+                           )
+
 
                 # СМЕТА
 @app.route('/smeta', methods=['POST', 'GET'])

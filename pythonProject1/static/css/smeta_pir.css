@@ -3,11 +3,9 @@ body {
     width: 900px;
     margin: auto;} /* Центрирует содержимое*/
 
-input {
-    width: 280px;}
+input, select {
+    width:  280px;}
 
-select {
-    width: 300px;}
 
 input#k_1, input#k_2, input#k_3 {
     width: 20px;}

@@ -12,8 +12,8 @@ index page
 
 <form method='POST' action='/'>
     <legend> Калькулятор расчёта объёма </legend>
-    <label> Введите площадь помещения: <br/>
-        <input type="number" id="area" name='area' value="{{ form_data.get('area') }}" required>
+    <label class="form-label"> Введите площадь помещения: <br/>
+        <input class="form-control mb-3" type="number" id="area" name='area' value="{{ form_data.get('area') }}" required>
         <span>м<sup>2</sup></span> </label>
     <br/>
     <label> Введите высоту помещения: <br/>
