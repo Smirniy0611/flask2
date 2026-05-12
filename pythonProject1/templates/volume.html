@@ -13,16 +13,16 @@ index page
 <form method='POST' action='/volume'>
     <legend> Калькулятор расчёта объёма </legend>
     <label class="form-label"> Введите площадь помещения: <br/>
-        <input class="form-control mb-3" type="number" id="area" name='area' value="{{ form_data.get('area') }}" required>
+        <input class="form-control" type="number" id="area" name='area' value="{{ form_data.get('area') }}" required>
         <span>м<sup>2</sup></span> </label>
     <br/>
-    <label> Введите высоту помещения: <br/>
-        <input type="number" id="height" name='height' value="{{ form_data.get('height') }}" required>
+    <label class="form-label"> Введите высоту помещения: <br/>
+        <input class="form-control" type="number" id="height" name='height' value="{{ form_data.get('height') }}" required>
         <span>м.</span> </label>
     <br/>
     <br/>
-    <label> Применить понижающий коэффициент 0,8?: <br>
-        <select name="koef_1">
+    <label class="form-label"> Применить понижающий коэффициент 0,8?: <br>
+        <select class="form-select" name="koef_1">
             <option value='0.8' {% if form_data.get('koef_1') == '0.8' %}selected{% endif %}> Да, применить </option>
             <option value='1' {% if form_data.get('koef_1') == '1' %}selected{% endif %}> Нет, не применять </option>
         </select> </label>
@@ -43,6 +43,7 @@ index page
         <label> Объём помещения равен:
             <span> {{ results }} м<sup>3</sup> </span> </label>
     </fieldset>
+
 </form>
 
 

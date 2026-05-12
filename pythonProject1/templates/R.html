@@ -12,8 +12,8 @@ R
 <form method='POST' action="/R" name="">
     <fieldset>
         <legend> Калькулятор определения расчетного сопротивления грунта </legend>
-            <label> Выбирете тип грунта, залегающего под подошвой фундамента: <br>
-                <select name="grunt">
+            <label class="form-smirniy"> Выбирете тип грунта, залегающего под подошвой фундамента: <br>
+                <select class="form-smirniy" name="grunt">
                     <option value="1" {% if form_data.get('grunt') == '1' %} selected {% endif %}> Крупнообломочные с песчаным заполнителем и пески, кроме мелких и пылеватых </option>
                     <option value="2" {% if form_data.get('grunt') == '2' %} selected {% endif %}>Пески мелкие</option>
                     <option value="3" {% if form_data.get('grunt') == '3' %} selected {% endif %}>Пески пылеватые: маловлажные</option>
@@ -25,48 +25,48 @@ Il<=0,25</option>
                 </select> </label>
             <br/>
 
-            <labelclass="form-label"> Конструктивная схема здания: <br>
-                <select class="form-select" name="Gamma_c2">
+            <label class="form-smirniy"> Конструктивная схема здания: <br>
+                <select class="form-smirniy" name="Gamma_c2">
                     <option value="1" {% if form_data.get('Gamma_c2') == '1' %} selected {% endif %}> Гибкая </option>
                     <option value="2" {% if form_data.get('Gamma_c2') == '2' %} selected {% endif %}> Жесткая </option>
                 </select> </label>
             <br/>
 
-            <label> Прочностные характеристики грунта определены: <br>
-                <select name="k">
+            <label class="form-smirniy"> Прочностные характеристики грунта определены: <br>
+                <select class="form-smirniy" name="k">
                     <option value="1" {% if form_data.get('k') == '1' %} selected {% endif %}> Непосредственными испытаниями </option>
                     <option value="1.1" {% if form_data.get('k') == '1.1' %} selected {% endif %}> По таблицам приложения А СП 22.13330.2016 </option>
                 </select> </label>
             <br/>
 
-            <label> Введите значение угла внутреннего трения в гр, fi=  <br/>
-                <input name="fi" value={{form_data.get('fi')}} type="number" step="1" required> <span> гр. </span> </label>
+            <label class="form-smirniy"> Введите значение угла внутреннего трения в гр, fi=  <br/>
+                <input class="form-smirniy" name="fi" value={{form_data.get('fi')}} type="number" step="1" required> <span> гр. </span> </label>
             <br/>
 
-            <label> Введите значение удельного сцепления грунта в т/м2, cII= <br/>
-                <input name="cII" value={{form_data.get('cII')}} type="number" step="0.1" required> <span> т/м2 </span> </label>
+            <label class="form-smirniy"> Введите значение удельного сцепления грунта в т/м2, cII= <br/>
+                <input class="form-smirniy" name="cII" value={{form_data.get('cII')}} type="number" step="0.1" required> <span> т/м2 </span> </label>
             <br/>
 
-            <label> Укажите ширину подошвы фундамента в м., b = <br/>
-                <input name="b" value={{form_data.get('b')}} type="number" step="0.1" required>  м.  </label>
+            <label class="form-smirniy"> Укажите ширину подошвы фундамента в м., b = <br/>
+                <input class="form-smirniy" name="b" value={{form_data.get('b')}} type="number" step="0.1" required>  м.  </label>
             <br/>
 
-            <label> Введите осредненное расчетное значение удельного веса грунтов,
+            <label class="form-smirniy"> Введите осредненное расчетное значение удельного веса грунтов,
 залегающих ниже подошвы фундамента, в т/м3: <br/>
-                <input name="yII" value={{form_data.get('yII')}} type="number" step="0.1" required> <span> т/м3 </span> </label>
+                <input class="form-smirniy" name="yII" value={{form_data.get('yII')}} type="number" step="0.1" required> <span> т/м3 </span> </label>
             <br/>
 
-        <label> Введите осредненное расчетное значение удельного веса грунтов,
+        <label class="form-smirniy"> Введите осредненное расчетное значение удельного веса грунтов,
 залегающих выше подошвы фундамента, в т/м3: <br/>
-                <input name="y_II" value={{form_data.get('y_II')}} type="number" step="0.1" required> <span> т/м3 </span> </label>
+                <input class="form-smirniy" name="y_II" value={{form_data.get('y_II')}} type="number" step="0.1" required> <span> т/м3 </span> </label>
             <br/>
 
-        <label> Введите, пожалуйста, глубину заложения фундамента, в м., d1=  <br/>
-                <input name="d1" value={{form_data.get('d1')}} type="number" step="0.1" required> <span> м. </span> </label>
+        <label class="form-smirniy"> Введите, пожалуйста, глубину заложения фундамента, в м., d1=  <br/>
+                <input class="form-smirniy" name="d1" value={{form_data.get('d1')}} type="number" step="0.1" required> <span> м. </span> </label>
             <br/>
 
-        <label> Введите, пожалуйста, глубину подвала, в м., db=  <br/>
-                <input name="db" value={{form_data.get('db')}} type="number" step="0.1" required> <span> м. </span> </label>
+        <label class="form-smirniy"> Введите, пожалуйста, глубину подвала, в м., db=  <br/>
+                <input class="form-smirniy" name="db" value={{form_data.get('db')}} type="number" step="0.1" required> <span> м. </span> </label>
             <br/>
 
         <input type="submit" value="Рассчитать" id="submit">

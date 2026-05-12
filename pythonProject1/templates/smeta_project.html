@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% block title %}
+index page
+{% endblock %}
+
+{% block content_title %}
+<h1> {{ the_title }} </h1>
+{% endblock %}
+
+{% block content %}
+
+<form method="POST">
+    <fieldset>
+        <label class="form-smirniy"><b>Назначение здания (сооружения):</b></label><br>
+    <!-- Первый список -->
+    <select class="form-smirniy" id="first-list" name="object" onchange="updateSecondList()">
+        {% for cat_name in categories %}
+            <option value="{{ cat_name }}" {% if form_data.get('object') == cat_name %}selected{% endif %}>
+                {{ cat_name }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <br/><br/>
+    <!-- Второй список -->
+        <label class="form-smirniy"><b>Наименование объекта капитального ремонта:</b></label><br>
+    <select class="form-smirniy" id="second-list" name="object_tip" onchange="updateUnit()">
+        {% for item in items %}
+            <option value="{{ item.id }}"
+                    data-unit="{{ item.unit }}"
+                    {% if form_data.get('object_tip') == item.id|string %}selected{% endif %}>
+                {{ item.name }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <br/><br/>
+
+        <label class="form-smirniy"><b> Укажите количество: </b></label>
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <input class="form-control" type="number" id="volume" name="volume"
+               value="{{ form_data.get('volume') }}" required style="width: 150px;">
+        <span id="unit-label"></span>
+    </div>
+
+    <div class="accordion accordion-flush">
+        <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                    aria-controls="flush-collapseTwo">
+                Повышающие коэффициенты при выполнении работ в сложных условиях (табл. 1)
+            </button>
+        </h2>
+        <div id="flush-collapseTwo" class="accordion-collapse collapse"
+        <!--data-bs-parent="#accordionFlushExample"-->
+        <!-- чтобы элементы аккордеона оставались открытыми, когда открывается другой элемент -->
+            <div class="accordion-body">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="k10_1" name="k10_1" {% if form_data.get('k10_1')
+                           %} checked {% endif %}>
+                    <label class="form-check-label" for="k10_1">
+                        Здания и сооружения, возведенные на вечномерзлых, просадочных, набухающих грунтах, над горными выработками, в подтапливаемых районах с карстовыми и оползневыми явлениями = 1.2
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="k10_2" name="k10_2" {% if form_data.get('k10_2')
+                           %} checked {% endif %}>
+                    <label class="form-check-label" for="k10_2">
+                        Выполнение работ в зданиях и сооружениях, являющихся памятником архитектуры или культурного наследия = 1.25
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="k10_3" name="k10_3" {% if
+                           form_data.get('k10_3') %} checked {% endif %}>
+                    <label class="form-check-label" for="k10_3">
+                        Конструкции, усиленные по ранее разработанным проектам = 1.2
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="k10_4" name="k10_4" {% if
+                           form_data.get('k10_4') %} checked {% endif %}>
+                    <label class="form-check-label" for="k10_4">
+                        Сейсмичность 7 баллов = 1.1
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="k10_5" name="k10_5" {% if
+                           form_data.get('k10_5') %} checked {% endif %}>
+                    <label class="form-check-label" for="k10_5">
+                        Сейсмичность 8 баллов = 1.2
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="k10_6" name="k10_6" {% if
+                           form_data.get('k10_6') %} checked {% endif %}>
+                    <label class="form-check-label" for="k10_6">
+                        Сейсмичность 9 баллов = 1.25
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+        <br>
+    <!-- Блок учёта НДС 22%-->
+    <div class="form-check">
+         <input class="form-check-input" type="checkbox" id="NDS" name="NDS" {% if
+            form_data.get('NDS') %} checked {% endif %}>
+        <label class="form-check-label" for="NDS">
+        Включая НДС (22%)
+     </label>
+    </div>
+<br/>
+    <input type="submit" value="Рассчитать" id="submit" >
+</fieldset>
+
+    <fieldset>
+        <legend> Результат</legend>
+        <label> Стоимость проектных работ составит:
+            <span> {{ form_data_2.get('results') }} тыс.руб. </span> </label>
+    </fieldset>
+</form>
+
+<script>
+function updateSecondList() {
+    const firstVal = document.getElementById('first-list').value;
+    const secondList = document.getElementById('second-list');
+
+    // Делаем запрос к вашему Flask-роуту вручную
+    // Добавляем заголовок HX-Request, чтобы Flask понял, что это запрос для списка
+    fetch(`/smeta_project?object=${encodeURIComponent(firstVal)}`, {
+        headers: { 'HX-Request': 'true' }
+    })
+    .then(response => response.text())
+    .then(html => {
+        // Заменяем содержимое второго списка тем, что прислал Flask
+        secondList.innerHTML = html;
+        updateUnit();
+    });
+}
+
+function updateUnit() {
+    const select = document.getElementById('second-list');
+    const unit = select.options[select.selectedIndex].dataset.unit;
+
+    document.getElementById('unit-label').innerText = unit;
+}
+
+    document.addEventListener("DOMContentLoaded", function() {
+    updateUnit();
+});
+</script>
+
+
+{% endblock %}
+
+

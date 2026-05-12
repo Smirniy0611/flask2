@@ -11,56 +11,63 @@ smeta_pir
 
 <form method='POST' action="/smeta" name="">
     <fieldset>
-        <legend> Калькулятор расчёта стоимости работ</legend>
-        <div class="column1of2">
-            <label> Строительный объём: <br/>
-                <input name="volume" value={{the_volume}} type="number">
-                <span>м<sup>3</sup></span> </label>
-            <br/>
+        <legend class="fs-5"> Калькулятор расчёта стоимости обмерных и обследовательских работ </legend>
+        <p class="red-line"> На данной странице представлен калькулятор расчета базовой стоимости выполнения
+            обмерных работ и обследований строительных конструкций зданий и сооружений жилищно-гражданского
+            и промышленного назначения, а также обследования систем инженерного обеспечения по ним.
+            Расчет выполняется на основании СБЦП 81 - 2001 - 25 "СПРАВОЧНИК БАЗОВЫХ ЦЕН НА ОБМЕРНЫЕ РАБОТЫ И ОБСЛЕДОВАНИЯ ЗДАНИЙ И СООРУЖЕНИЙ" </p>
+        <div class="row">
+            <div class="col-md-6 column">
+                <label class="form-smirniy"> Строительный объём:
+                    <br/>
+                    <input class="form-smirniy" name="volume" value="{{smeta_data_1.get('volume')}}" type="number" step="0.01" min="0" required>
+                    <span>м<sup>3</sup></span> </label>
+                <br/>
 
-            <label> Высота здания в метрах, до: <br/>
-                <input name="height" value={{the_height}} type="number"> <span>м.</span> </label>
-            <br/>
+                <label class="form-smirniy"> Высота здания в метрах: <br/>
+                    <input class="form-smirniy" name="height" value="{{smeta_data_1.get('height')}}" type="number" step="0.01" min="0" required> <span>м.</span> </label>
+                <br/>
 
-            <label> Назначение здания: <br>
-                <select name="purpose">
-                    <option value="1" {% if the_purpose=='1' %}selected{% endif %}> Жилищно-гражданское</option>
-                    <option value="2" {% if the_purpose=='2' %}selected{% endif %}> Промышленное</option>
-                </select> </label>
-            <br/>
+                <label class="form-smirniy"> Назначение здания: <br>
+                    <select class="form-smirniy" name="purpose">
+                        <option value="1" {% if smeta_data_1.get('purpose')=='1' %}selected{% endif %}> Жилищно-гражданское</option>
+                        <option value="2" {% if smeta_data_1.get('purpose')=='2' %}selected{% endif %}> Промышленное</option>
+                    </select> </label>
+                <br/>
 
-            <label> Этажность здания: <br>
-                <select name="floor">
-                    <option value="1" {% if the_floor=='1' %}selected{% endif %}> Одноэтажное</option>
-                    <option value="2" {% if the_floor=='2' %}selected{% endif %}> Многоэтажное</option>
-                </select> </label>
-            <br/>
-        </div>
+                <label class="form-smirniy"> Этажность здания: <br>
+                    <select class="form-smirniy" name="floor">
+                        <option value="1" {% if smeta_data_1.get('floor')=='1' %}selected{% endif %}> Одноэтажное</option>
+                        <option value="2" {% if smeta_data_1.get('floor')=='2' %}selected{% endif %}> Многоэтажное</option>
+                    </select> </label>
+                <br/>
+                </div>
 
-        <div class="column2of2">
-            <label> Категория сложности здания: <br>
-                <select name="category_1">
-                    {% for i in cat %}
-                    <option value="{{i}}" {% if the_category_1==i %}selected{% endif %}> {{i}}</option>
-                    {% endfor %}
-                </select> </label>
-            <br/>
+            <div class="col-md-6 column">
+                <label class="form-smirniy"> Категория сложности здания: <br>
+                    <select class="form-smirniy" name="category_1">
+                        {% for i in cat %}
+                        <option value="{{i}}" {% if smeta_data_1.get('category_1')==i %}selected{% endif %}> {{i}}</option>
+                        {% endfor %}
+                    </select> </label>
+                <br/>
 
-            <label> Сложность обмерных работ: <br>
-                <select name="category_2">
-                    {% for i in cat %}
-                    <option value="{{i}}" {% if the_category_2==i %}selected{% endif %}> {{i}}</option>
-                    {% endfor %}
-                </select> </label>
-            <br/>
+                <label class="form-smirniy"> Сложность обмерных работ: <br>
+                    <select class="form-smirniy" name="category_2">
+                        {% for i in cat %}
+                        <option value="{{i}}" {% if smeta_data_1.get('category_2')==i %}selected{% endif %}> {{i}}</option>
+                        {% endfor %}
+                    </select> </label>
+                <br/>
 
-            <label> Сложность обследовательских работ: <br>
-                <select name="category_3">
-                    {% for i in cat %}
-                    <option value="{{i}}" {% if the_category_3==i %}selected{% endif %}> {{i}}</option>
-                    {% endfor %}
-                </select> </label>
-            <br/>
+                <label class="form-smirniy"> Сложность обследовательских работ: <br>
+                    <select class="form-smirniy" name="category_3">
+                        {% for i in cat %}
+                        <option value="{{i}}" {% if smeta_data_1.get('category_3')==i %}selected{% endif %}> {{i}}</option>
+                        {% endfor %}
+                    </select> </label>
+                <br/>
+            </div>
         </div>
 
         <!-- начало Аккордеона с коэффициентами главы 2.1 СБЦП-->
@@ -72,24 +79,24 @@ smeta_pir
                         Дополнительные коэффициенты
                     </button>
                 </h2>
-                <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div id="flush-collapseOne" class="accordion-collapse collapse">
                     <div class="accordion-body">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="k_2" name="k_2" {% if k_2 %} checked {%
+                            <input class="form-check-input" type="checkbox" id="k_2" name="k_2" {% if smeta_data_1.get('k_2') %} checked {%
                                    endif %}>
                             <label class="form-check-label" for="k_2">
                                 Шаг колонн и несущих стен менее 6 м. (п.2.1.9) = 1.25
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="k_3" name="k_3" {% if k_3 %} checked {%
+                            <input class="form-check-input" type="checkbox" id="k_3" name="k_3" {% if smeta_data_1.get('k_3') %} checked {%
                                    endif %}>
                             <label class="form-check-label" for="k_3">
                                 Обмеры и обследование клёпаных конструкций (п.2.1.10) = 1.2
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="k_4" name="k_4" {% if k_4 %} checked {%
+                            <input class="form-check-input" type="checkbox" id="k_4" name="k_4" {% if smeta_data_1.get('k_4') %} checked {%
                                    endif %}>
                             <label class="form-check-label" for="k_4">
                                 <!-- Только для обмерных работ! -->
@@ -98,7 +105,7 @@ smeta_pir
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="k_5" name="k_5" {% if k_5 %} checked {%
+                            <input class="form-check-input" type="checkbox" id="k_5" name="k_5" {% if smeta_data_1.get('k_5') %} checked {%
                                    endif %}>
                             <label class="form-check-label" for="k_5">
                                 <!-- Только для обследовательских работ! -->
@@ -120,10 +127,11 @@ smeta_pir
                             </button>
                         </h2>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse"
-                             data-bs-parent="#accordionFlushExample">
+                             <!--data-bs-parent="#accordionFlushExample"-->
+                        <!-- чтобы элементы аккордеона оставались открытыми, когда открывается другой элемент -->
                             <div class="accordion-body">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="k10_1" name="k10_1" {% if k10_1
+                                    <input class="form-check-input" type="checkbox" id="k10_1" name="k10_1" {% if smeta_data_1.get('k10_1')
                                            %} checked {% endif %}>
                                     <label class="form-check-label" for="k10_1">
                                         Здания, возведенные на просадочных, набухающих грунтах, над горными выработками,
@@ -131,7 +139,7 @@ smeta_pir
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="k10_2" name="k10_2" {% if k10_2
+                                    <input class="form-check-input" type="checkbox" id="k10_2" name="k10_2" {% if smeta_data_1.get('k10_2')
                                            %} checked {% endif %}>
                                     <label class="form-check-label" for="k10_2">
                                         Насыщенность оборудованием более 50% площади помещений, затрудняющая
@@ -141,7 +149,7 @@ smeta_pir
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="k10_3" name="k10_3" {% if k10_3
+                                    <input class="form-check-input" type="checkbox" id="k10_3" name="k10_3" {% if smeta_data_1.get('k10_3')
                                            %} checked {% endif %}>
                                     <label class="form-check-label" for="k10_3">
                                         Выполнение работ в цехах с вредным для здоровья производством, с
@@ -150,7 +158,7 @@ smeta_pir
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="k10_4" name="k10_4" {% if k10_4
+                                    <input class="form-check-input" type="checkbox" id="k10_4" name="k10_4" {% if smeta_data_1.get('k10_4')
                                            %} checked {% endif %}>
                                     <label class="form-check-label" for="k10_4">
                                         Выполнение работ в неотапливаемых зданиях или его частях (чердаки, кровли,
@@ -158,14 +166,14 @@ smeta_pir
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="k10_5" name="k10_5" {% if k10_5
+                                    <input class="form-check-input" type="checkbox" id="k10_5" name="k10_5" {% if smeta_data_1.get('k10_5')
                                            %} checked {% endif %}>
                                     <label class="form-check-label" for="k10_5">
                                         Выполнение работ в зданиях, являющихся памятником архитектуры = 1.25
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="k10_6" name="k10_6" {% if k10_6
+                                    <input class="form-check-input" type="checkbox" id="k10_6" name="k10_6" {% if smeta_data_1.get('k10_6')
                                            %} checked {% endif %}>
                                     <label class="form-check-label" for="k10_6">
                                         Выполнение работ в условиях, требующих обеспечение безопасности (использование
@@ -173,7 +181,7 @@ smeta_pir
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="k10_7" name="k10_7" {% if k10_7
+                                    <input class="form-check-input" type="checkbox" id="k10_7" name="k10_7" {% if smeta_data_1.get('k10_7')
                                            %} checked {% endif %}>
                                     <label class="form-check-label" for="k10_7">
                                         Выполнение работ в цехах со слабой степенью агрессивного воздействия окружающей
@@ -181,7 +189,7 @@ smeta_pir
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="k10_8" name="k10_8" {% if k10_8
+                                    <input class="form-check-input" type="checkbox" id="k10_8" name="k10_8" {% if smeta_data_1.get('k10_8')
                                            %} checked {% endif %}>
                                     <label class="form-check-label" for="k10_8">
                                         То же, в цехах со средней степенью агрессивного воздействия окружающей среды =
@@ -189,7 +197,7 @@ smeta_pir
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="k10_9" name="k10_9" {% if k10_9
+                                    <input class="form-check-input" type="checkbox" id="k10_9" name="k10_9" {% if smeta_data_1.get('k10_9')
                                            %} checked {% endif %}>
                                     <label class="form-check-label" for="k10_9">
                                         То же, в цехах с сильной степенью агрессивного воздействия окружающей среды =
@@ -198,35 +206,35 @@ smeta_pir
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="k10_10" name="k10_10" {% if
-                                           k10_10 %} checked {% endif %}>
+                                           smeta_data_1.get('k10_10') %} checked {% endif %}>
                                     <label class="form-check-label" for="k10_10">
                                         Конструкции, усиленные по ранее разработанным проектам = 1.2
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="k10_11" name="k10_11" {% if
-                                           k10_11 %} checked {% endif %}>
+                                           smeta_data_1.get('k10_11') %} checked {% endif %}>
                                     <label class="form-check-label" for="k10_11">
                                         Сейсмичность 7 баллов = 1.1
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="k10_12" name="k10_12" {% if
-                                           k10_12 %} checked {% endif %}>
+                                           smeta_data_1.get('k10_12') %} checked {% endif %}>
                                     <label class="form-check-label" for="k10_12">
                                         Сейсмичность 8 баллов = 1.2
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="k10_13" name="k10_13" {% if
-                                           k10_13 %} checked {% endif %}>
+                                           smeta_data_1.get('k10_13') %} checked {% endif %}>
                                     <label class="form-check-label" for="k10_13">
                                         Сейсмичность 9 баллов = 1.25
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="k10_14" name="k10_14" {% if
-                                           k10_14 %} checked {% endif %}>
+                                           smeta_data_1.get('k10_14') %} checked {% endif %}>
                                     <label class="form-check-label" for="k10_14">
                                         Выполнение работ на объектах со специальным режимом = 1.25
                                     </label>
@@ -236,26 +244,254 @@ smeta_pir
                     </div>
                     <!-- конец Аккордеона с коэффициентами таблицы 10 СБЦП-->
 
-                    <input type="submit" value="Рассчитать" id="submit">
+                <!-- Блок расчета стоимости обследования инженерных систем-->
+                <br>
+                    <legend class="fs-5"> Определение стоимости обследования инженерных систем </legend>
+                    <div class="form-check">
+                         <input class="form-check-input" type="checkbox" id="gvs" name="gvs"
+                                {% if smeta_data_1.get('gvs') %} checked {% endif %}>
+                        <label class="form-check-label" for="gvs">
+                        Обследование систем горячего водоснабжения
+                        </label>
+                    </div>
+                    <div class="form-check">
+                         <input class="form-check-input" type="checkbox" id="otopl" name="otopl"
+                                {% if smeta_data_1.get('otopl') %} checked {% endif %}>
+                        <label class="form-check-label" for="otopl">
+                        Обследование систем отопления
+                        </label>
+                    </div>
+                    <div class="form-check">
+                         <input class="form-check-input" type="checkbox" id="hvs" name="hvs"
+                                {% if smeta_data_1.get('hvs') %} checked {% endif %}>
+                        <label class="form-check-label" for="hvs">
+                        Обследование систем холодного водоснабжения и канализации без ванн
+                        </label>
+                    </div>
+                    <div class="form-check">
+                         <input class="form-check-input" type="checkbox" id="vent" name="vent"
+                                {% if smeta_data_1.get('vent') %} checked {% endif %}>
+                        <label class="form-check-label" for="vent">
+                        Обследование систем вентиляции
+                        </label>
+                    </div>
+                    <div class="form-check">
+                         <input class="form-check-input" type="checkbox" id="musor" name="musor"
+                                {% if smeta_data_1.get('musor') %} checked {% endif %}>
+                        <label class="form-check-label" for="musor">
+                        Обследование систем мусороудаления
+                        </label>
+                    </div>
+                    <div class="form-check">
+                         <input class="form-check-input" type="checkbox" id="gas" name="gas"
+                                {% if smeta_data_1.get('gas') %} checked {% endif %}>
+                        <label class="form-check-label" for="gas">
+                        Обследование систем газоснабжения
+                        </label>
+                    </div>
+                    <div class="form-check">
+                         <input class="form-check-input" type="checkbox" id="vodostok" name="vodostok"
+                                {% if smeta_data_1.get('vodostok') %} checked {% endif %}>
+                        <label class="form-check-label" for="vodostok">
+                        Обследование состояния водостоков
+                        </label>
+                    </div>
+                    <div class="form-check">
+                         <input class="form-check-input" type="checkbox" id="elektr" name="elektr" onchange="toggleInput()"
+                                {% if smeta_data_1.get('elektr') %} checked {% endif %}>
+                        <label class="form-check-label" for="elektr">
+                        Обследование состояния электрических сетей и средств связи
+                        </label>
+                    </div>
+
+                <!-- Скрытое поле (появится при клике) -->
+                    <div id="elektr_2" style="display: none;">
+                        <label>Введите площадь:</label>
+                        <input name="sqare" value="{{smeta_data_1.get('sqare')}}" type="number" step="0.01" min="0">
+                        <span>м<sup>2</sup></span> </label>
+                <br/>
+                    </div>
+                <br>
+                    <label class="form-label"> Количество выполняемых однотипных работ по обследованию систем
+                        инженерного обеспечения зданий и сооружений: <br>
+                        <select class="form-select" name="koef_1">
+                             <option value='1' {% if smeta_data_1.get('koef_1') == '1' %}selected{% endif %}> не выбрано </option>
+                             <option value='0.1' {% if smeta_data_1.get('koef_1') == '0.1' %}selected{% endif %}> 10 видов работ </option>
+                             <option value='0.2' {% if smeta_data_1.get('koef_1') == '0.2' %}selected{% endif %}> 9 видов работ </option>
+                             <option value='0.3' {% if smeta_data_1.get('koef_1') == '0.3' %}selected{% endif %}> 8 видов работ </option>
+                             <option value='0.4' {% if smeta_data_1.get('koef_1') == '0.4' %}selected{% endif %}> 7 видов работ </option>
+                             <option value='0.5' {% if smeta_data_1.get('koef_1') == '0.5' %}selected{% endif %}> 6 видов работ </option>
+                             <option value='0.6' {% if smeta_data_1.get('koef_1') == '0.6' %}selected{% endif %}> 5 видов работ </option>
+                             <option value='0.7' {% if smeta_data_1.get('koef_1') == '0.7' %}selected{% endif %}> 4 видов работ </option>
+                             <option value='0.8' {% if smeta_data_1.get('koef_1') == '0.8' %}selected{% endif %}> 3 видов работ </option>
+                             <option value='0.9' {% if smeta_data_1.get('koef_1') == '0.9' %}selected{% endif %}> 2 вида работ </option>
+                        </select>
+                    </label>
+                <!-- конец блока расчета обследования инженерных систем-->
+                <br>
+                <!-- Блок учёта НДС 22%-->
+                    <div class="form-check">
+                         <input class="form-check-input" type="checkbox" id="NDS" name="NDS" {% if
+                            smeta_data_1.get('NDS') %} checked {% endif %}>
+                        <label class="form-check-label" for="NDS">
+                        Включая НДС (22%)
+                     </label>
+                    </div>
+                    <br>
+                    <div>
+                        <input type="submit" value="Рассчитать" id="submit" onclick="scrollToElement('results')">
+                    </div>
                 </div>
             </div>
         </div>
     </fieldset>
 
-    <fieldset>
+    <fieldset id="results">
         <h6>
-            <legend> Результат </legend>
+        Результат:
             <br/><br/>
             <label> Стоимость обмерных работ:
-                <span> {{ results_1 }} руб. </span> </label>
+                <span> {{ smeta_data_2.get('results_1') }} руб. </span> </label>
             <br/><br/>
             <label> Стоимость обследовательских работ:
-                <span> {{ results_2 }} руб. </span> </label>
+                <span> {{ smeta_data_2.get('results_2') }} руб. </span> </label>
+            <br/><br/>
+            <label> Стоимость работ по обследованию систем инженерного обеспечения:
+                <span> {{ smeta_data_2.get('results_3') }} руб. </span> </label>
             <br/><br/>
             <label> Общая стоимость работ:
-                <span> {{ results_3 }} руб. </span> </label>
+                <span> {{ smeta_data_2.get('results_4') }} руб. </span> </label>
         </h6>
     </fieldset>
+
+
+    <!-- <fieldset>
+        <h6>
+            <legend id="results"> Вывод на печать: </legend>
+            <br/><br/>
+                <label> pdf: </label>
+                <br/><br/>
+                <label> word: </label>
+        </h6>
+    </fieldset> -->
 </form>
 
-{% endblock %} 
+<div class="container p-3">
+    <h5> Примечания: </h5>
+    <h6 class="red-line"> Базовыми ценами настоящего Справочника не учтена стоимость выполнения следующих работ, выполняемых силами заказчика за их счет: </h6>
+        <ul>
+          <li> вскрытий в конструкциях и их заделка;</li>
+          <li> откопка шурфов около фундаментов стен и колонн с откачкой воды и обратной засыпкой;</li>
+          <li> очистки поверхностей конструкций от производственной пыли и грязи; </li>
+          <li> устройства разборки и перемещения лесов, подмостей и настила; </li>
+          <li> устройство на объекте временного стационарного освещения; </li>
+          <li> откачка воды при обследовании затопленных помещений; </li>
+          <li> обмеры и обследования сооружений (силосов, дымовых труб, башен и т.д.); </li>
+          <li> постановка длительных наблюдений за состоянием конструкций; </li>
+          <li> обследование оснований фундаментов, отбор образцов грунтов и их транспортировка, лабораторные испытания и составление заключения по инженерно-геологическим условиям объекта обследования; </li>
+          <li> планово-высотная съемка положения строительных конструкций; </li>
+          <li> затраты на служебные командировки; </li>
+          <li> внесение изменений в техдокументацию выданную заказчику. </li>
+        </ul>
+</div>
+
+<div class="container">
+    <p class="red-line"> При выполнении визуальных обследований и составлении строительных паспортов базовая цена работ определяется по таблицам № 1 - 4 настоящего Справочника для первой категории сложности работ.</p>
+</div>
+
+<div class="container p-3">
+    <h6 class="red-line"> Обследование систем инженерного обеспечения зданий и сооружений включает: </h6>
+        <ul>
+          <li> определение фактического технического состояния системы; </li>
+          <li> выявление дефектов, повреждений и неисправностей; </li>
+          <li> количественную оценку физического износа систем инженерного обеспечения зданий и сооружений; </li>
+          <li> количественную оценку морального износа систем зданий и сооружений; </li>
+          <li> определение морального износа зданий и сооружений при отсутствии отдельных систем их инженерного обеспечения; </li>
+          <li> установление отклонений от проекта и нормативных требований; </li>
+          <li> оценку коррозионного состояния внутренних трубопроводов; </li>
+          <li> отбор образцов из стояков, подводок к нагревательным приборам и т.п. для определения максимальной глубины коррозионного поражения и величины сужения живого сечения. </li>
+        </ul>
+</div>
+
+<div class="container p-1">
+    <p class="red-line"> <span class="fw-bold"> Строительный объем </span> надземной части одноэтажных или многоэтажных зданий определяется умножением площади вертикального поперечного сечения по внешнему контуру стен и покрытия на длину здания, измеренную между наружными поверхностями торцевых стен на уровне первого этажа выше цоколя.</p>
+    <p class="red-line"> <span class="fw-bold"> Высота здания. </span>
+    При определении высоты здания или сооружения за высоту одноэтажных зданий и сооружений принимается расстояние от уровня чистого пола или подвала до низа несущих конструкций покрытия или чердачного перекрытия на опоре.
+        При определении высоты здания или сооружения за высоту многоэтажных зданий и сооружений принимается расстояние от первого этажа или подвала до плоскости потолка последнего этажа (в том числе подвесного). </p>
+</div>
+<div class="container">
+	<table class="table-sm table-bordered border-dark"> <!-- style="--bs-border-color: var(--bs-teal);" -->
+		<tbody>
+			<tr>
+				<td><center><b>Категория сложности здания</b></center></td>
+				<td><center><b>Характеристика  сложности</b></center></td>
+			</tr>
+			<tr>
+				<td colspan="2"><center><b>Одноэтажные здания</b></center></td>
+			</tr>
+			<tr>
+				<td><center><b>I</b></center></td>
+				<td>Однопролетные и двухпролетные бескаркасные, бескрановые здания или сооружения высотой до 5 м</td>
+			</tr>
+			<tr>
+				<td><center><b>II</b></center></td>
+				<td>Все здания и сооружения, не вошедшие в I и III категории сложности</td>
+			</tr>
+			<tr>
+				<td><center><b>III</b></center></td>
+				<td>Здания каркасной конструкции с двухъярусным расположением мостовых (или консольных) кранов,  либо здания, состоящие в плане из нескольких прямоугольников (более 3), или криволинейных очертаний, или с большим количеством разнотипных помещений</td>
+			</tr>
+			<tr>
+				<td colspan="2"><center><b>Многоэтажные здания</b></center></td>
+			</tr>
+			<tr>
+				<td><center><b>I</b></center></td>
+				<td>Здания прямоугольной формы  в плане, с однотипными помещениями в пределах этажа</td>
+			</tr>
+			<tr>
+				<td><center><b>II</b></center></td>
+				<td>Здания, состоящие в плане из 2-3 прямоугольников, здания прямоугольной формы  в плане, с разнотипными помещениями (отличающиеся по площади, назначению и т.п.) в пределах этажа</td>
+			</tr>
+			<tr>
+				<td><center><b>III</b></center></td>
+				<td>Здания,  состоящие в плане из нескольких прямоугольников (более 3) или криволинейных очертаний, с разнотипными помещениями в пределах этажа</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+
+
+
+
+    <script>
+            // Пример: при клике на ссылку, сделать её активной
+     document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+      link.addEventListener('click', function() {
+        // Убираем класс active у всех ссылок
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(l => l.classList.remove('active'));
+        // Добавляем класс active к текущей ссылке
+        this.classList.add('active');
+      });
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+    toggleInput();
+
+    function toggleInput() {
+    const checkbox = document.getElementById('elektr');
+    const block = document.getElementById('elektr_2');
+
+    if (checkbox.checked) {
+        block.style.display = 'block';
+    } else {
+        block.style.display = 'none';
+    }
+}
+});
+
+    </script>
+
+{% endblock %}
+
+
